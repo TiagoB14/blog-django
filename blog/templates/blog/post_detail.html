@@ -17,4 +17,22 @@
     <a class="button danger" href="{% url 'blog:post_delete' post.pk %}">Remover</a>
     <a class="button secondary" href="{% url 'blog:post_list' %}">Voltar para a lista</a>
   </div>
+
+  <section class="comments">
+    <h2>Comentários ({{ post.comments.count }})</h2>
+
+    <div class="actions">
+      <a class="button" href="{% url 'blog:comment_create' post.pk %}">Comentar</a>
+    </div>
+
+    {% for comment in post.comments.all %}
+      <div class="comment">
+        <strong>{{ comment.author }}</strong>
+        <span class="meta">em {{ comment.pub_date|date:"d/m/Y H:i" }}</span>
+        <p>{{ comment.text|linebreaksbr }}</p>
+      </div>
+    {% empty %}
+      <p>Nenhum comentário ainda. Seja o primeiro a comentar.</p>
+    {% endfor %}
+  </section>
 {% endblock %}
