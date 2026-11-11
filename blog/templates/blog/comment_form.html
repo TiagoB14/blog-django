@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo comentário | Blog do Tiago{% endblock %}
+
+{% block content %}
+  <h1>Novo comentário</h1>
+  <p class="meta">
+    No post <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="actions">
+      <button type="submit">Publicar comentário</button>
+      <a class="button secondary" href="{% url 'blog:post_detail' post.pk %}">Cancelar</a>
+    </div>
+  </form>
+{% endblock %}
