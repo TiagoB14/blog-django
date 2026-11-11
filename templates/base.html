@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Blog do Tiago{% endblock %}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2933;
+      background: #f5f7fa;
+    }
+    a { color: #0b5cad; }
+    header.site {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem 1.5rem;
+      padding: 1rem 1.5rem;
+      background: #102a43;
+    }
+    header.site a { color: #fff; text-decoration: none; }
+    header.site .brand { font-size: 1.25rem; font-weight: 700; }
+    header.site nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+    header.site nav a:hover { text-decoration: underline; }
+    main {
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 1.5rem 2rem;
+      background: #fff;
+      border: 1px solid #d9e2ec;
+      border-radius: 8px;
+    }
+    h1 { margin-top: 0; line-height: 1.25; }
+    .meta { color: #627d98; font-size: .9rem; }
+    ul.posts { list-style: none; padding: 0; }
+    ul.posts li { padding: .75rem 0; border-bottom: 1px solid #d9e2ec; }
+    ul.posts li a { font-size: 1.1rem; font-weight: 600; text-decoration: none; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.5rem 0; }
+    .button, button {
+      display: inline-block;
+      padding: .45rem 1rem;
+      border: 1px solid #0b5cad;
+      border-radius: 6px;
+      background: #0b5cad;
+      color: #fff;
+      font: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { background: #fff; color: #0b5cad; }
+    .button.danger, button.danger { background: #ba2525; border-color: #ba2525; }
+    form p { margin: 0 0 1rem; }
+    form label { display: block; font-weight: 600; margin-bottom: .25rem; }
+    form input[type=text], form textarea, form select {
+      width: 100%;
+      padding: .5rem;
+      border: 1px solid #9fb3c8;
+      border-radius: 6px;
+      font: inherit;
+    }
+    .errorlist { color: #ba2525; padding-left: 1.2rem; }
+    .comment { padding: .75rem 0; border-top: 1px solid #d9e2ec; }
+    .comment p { margin: .25rem 0 0; }
+    .tags a {
+      display: inline-block;
+      margin-right: .35rem;
+      padding: .1rem .6rem;
+      border-radius: 999px;
+      background: #d9e2ec;
+      font-size: .85rem;
+      text-decoration: none;
+    }
+    footer.site { text-align: center; color: #627d98; font-size: .85rem; padding: 0 1rem 2rem; }
+    @media (max-width: 600px) {
+      main { margin: 0; padding: 1rem; border: 0; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <a class="brand" href="{% url 'blog:post_list' %}">Blog do Tiago</a>
+    <nav>
+      <a href="{% url 'blog:post_list' %}">Posts</a>
+      <a href="{% url 'blog:post_create' %}">Novo post</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site">
+    PMR3304 &mdash; Segunda Entrega de Laboratório &middot; feito com Django
+  </footer>
+</body>
+</html>

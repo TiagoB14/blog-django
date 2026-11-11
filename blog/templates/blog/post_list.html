@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts | Blog do Tiago{% endblock %}
+
+{% block content %}
+  <h1>Posts</h1>
+
+  {% if post_list %}
+    <ul class="posts">
+      {% for post in post_list %}
+        <li>
+          <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+          <div class="meta">{{ post.pub_date|date:"d/m/Y H:i" }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhum post publicado ainda.</p>
+  {% endif %}
+
+  <div class="actions">
+    <a class="button" href="{% url 'blog:post_create' %}">Novo post</a>
+  </div>
+{% endblock %}

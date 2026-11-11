@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} | Blog do Tiago{% endblock %}
+
+{% block content %}
+  <article>
+    <h1>{{ post.title }}</h1>
+    <p class="meta">Publicado em {{ post.pub_date|date:"d/m/Y" }} às {{ post.pub_date|date:"H:i" }}</p>
+
+    <div class="content">
+      {{ post.content|safe }}
+    </div>
+  </article>
+
+  <div class="actions">
+    <a class="button" href="{% url 'blog:post_update' post.pk %}">Editar</a>
+    <a class="button danger" href="{% url 'blog:post_delete' post.pk %}">Remover</a>
+    <a class="button secondary" href="{% url 'blog:post_list' %}">Voltar para a lista</a>
+  </div>
+{% endblock %}

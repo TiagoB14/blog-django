@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if post %}Editar post{% else %}Novo post{% endif %} | Blog do Tiago{% endblock %}
+
+{% block content %}
+  <h1>{% if post %}Editar post{% else %}Novo post{% endif %}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      <label for="id_title">Título</label>
+      <input type="text" name="title" id="id_title" value="{{ post.title }}">
+    </p>
+    <p>
+      <label for="id_content">Conteúdo (HTML)</label>
+      <textarea name="content" id="id_content" rows="12">{{ post.content }}</textarea>
+    </p>
+    <div class="actions">
+      <button type="submit">Salvar</button>
+      {% if post %}
+        <a class="button secondary" href="{% url 'blog:post_detail' post.pk %}">Cancelar</a>
+      {% else %}
+        <a class="button secondary" href="{% url 'blog:post_list' %}">Cancelar</a>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}
