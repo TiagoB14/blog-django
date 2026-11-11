@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Categorias | Blog do Tiago{% endblock %}
+
+{% block content %}
+  <h1>Categorias</h1>
+
+  {% if category_list %}
+    <ul class="posts">
+      {% for category in category_list %}
+        <li>
+          <a href="{% url 'blog:category_detail' category.pk %}">{{ category.name }}</a>
+          <div class="meta">{{ category.description }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhuma categoria cadastrada ainda.</p>
+  {% endif %}
+{% endblock %}
