@@ -7,6 +7,15 @@
     <h1>{{ post.title }}</h1>
     <p class="meta">Publicado em {{ post.pub_date|date:"d/m/Y" }} às {{ post.pub_date|date:"H:i" }}</p>
 
+    <p class="tags">
+      Categorias:
+      {% for category in post.categories.all %}
+        <a href="{% url 'blog:category_detail' category.pk %}">{{ category.name }}</a>
+      {% empty %}
+        <span class="meta">nenhuma</span>
+      {% endfor %}
+    </p>
+
     <div class="content">
       {{ post.content|safe }}
     </div>

@@ -3,7 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from .forms import CommentForm, PostForm
-from .models import Post
+from .models import Category, Post
 
 
 class PostListView(generic.ListView):
@@ -13,8 +13,8 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     # Template: blog/post_detail.html; responde com 404 se o post não existir.
-    # Os comentários são lidos no template com post.comments.all, já ordenados
-    # do mais recente para o mais antigo (Meta.ordering do modelo Comment).
+    # Comentários e categorias são lidos no template com post.comments.all
+    # (mais recente primeiro) e post.categories.all.
     model = Post
 
 
@@ -55,3 +55,19 @@ def comment_create(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {'form': form, 'post': post})
+
+
+class CategoryListView(generic.ListView):
+    # Template: blog/category_list.html; variável de contexto: category_list.
+    model = Category
+
+
+def category_detail(request, pk):
+    # Responde com 404 se a categoria não existir.
+    category = get_object_or_404(Category, pk=pk)
+    context = {
+        'category': category,
+        'post_list': category.posts.all(),
+    }
+    # Reutiliza o template de listagem de posts da parte 1.
+    return render(request, 'blog/post_list.html', context)

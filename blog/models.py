@@ -3,11 +3,25 @@ from django.db import models
 from django.utils import timezone
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     # O conteúdo é guardado como HTML e renderizado no template com o filtro safe.
     content = models.TextField()
     pub_date = models.DateTimeField(default=timezone.now)
+    # Um post pode estar em várias categorias e uma categoria tem vários posts.
+    categories = models.ManyToManyField(Category, related_name='posts', blank=True)
 
     class Meta:
         ordering = ['-pub_date']
