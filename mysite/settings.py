@@ -2,18 +2,30 @@
 Configurações do projeto mysite (blog da segunda entrega de PMR3304).
 """
 
+import os
 from pathlib import Path
 
 # Caminho base do projeto: BASE_DIR / 'subpasta'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Chave usada apenas em desenvolvimento.
-SECRET_KEY = 'django-insecure-s@c(t+k%86x_si8b5zb)7i_^*7^a-(rzd4ioi1pa!4%^#_e7)u'
+# Em produção (Render) a chave vem da variável de ambiente SECRET_KEY;
+# o valor abaixo é usado apenas em desenvolvimento.
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-s@c(t+k%86x_si8b5zb)7i_^*7^a-(rzd4ioi1pa!4%^#_e7)u',
+)
 
-DEBUG = True
+# O Render define a variável RENDER automaticamente; fora dele, modo debug.
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS = ['https://' + RENDER_EXTERNAL_HOSTNAME]
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Aplicações
@@ -101,5 +113,8 @@ USE_TZ = True
 # Arquivos estáticos
 
 STATIC_URL = 'static/'
+
+# Destino do collectstatic (usado no deploy).
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
