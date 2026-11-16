@@ -1,4 +1,4 @@
-# Blog com Django — PMR3304, Segunda Entrega de Laboratório
+# Mecatrônica com Tiago — blog com Django (PMR3304, Segunda Entrega de Laboratório)
 
 Aplicação CRUD no estilo de um blog, com posts, comentários e categorias, feita apenas com o Django (sem extensões).
 
@@ -17,7 +17,7 @@ python manage.py runserver
 - Aplicação: http://127.0.0.1:8000/
 - Administrador: http://127.0.0.1:8000/admin/
 
-O comando `seed` cria três usuários (`ana`, `bruno`, `carla`), três categorias, três posts e cinco comentários de exemplo. Ele só age se ainda não houver posts no banco. Os mesmos dados podem ser criados à mão pelo administrador.
+O comando `seed` cria três usuários (`ana`, `bruno`, `carla`), quatro categorias, três posts e cinco comentários de exemplo. Ele só age se ainda não houver posts no banco. Os mesmos dados podem ser criados à mão pelo administrador.
 
 ## Estrutura
 
